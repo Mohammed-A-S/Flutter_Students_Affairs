@@ -1,47 +1,83 @@
+import 'dart:convert';
+
 class Problems
 {
-  String? student_name;
-  String? student_id;
-  String? student_level;
+  String student_name;
+  String student_id;
+  String student_level;
   String department;
   String problem;
+  
 
-  String? admin_name;
-  String? admin_id;
-  String? answer;
-
+  String advisor_name;
+  String advisor_id;
+  String answer;
+  
   int upvote = 0;
   int downvote = 0;
 
   String kind;
-
-
-
+  
   Problems
   (
-    this.student_name, 
-    this.student_id, 
-    this.student_level, 
-    this.department, 
-    this.problem, 
-
-    this.admin_name, 
-    this.admin_id, 
-    this.answer, 
-    
-    this.upvote, 
-    this.downvote, 
-    
-    this.kind,
+    { 
+      required this.student_name, 
+      required this.student_id, 
+      required this.student_level, 
+      required this.department, 
+      required this.problem, 
+      required this.advisor_name, 
+      required this.advisor_id, 
+      required this.answer, 
+      required this.upvote, 
+      required this.downvote, 
+      required this.kind,
+    }
   );
 
 
+    factory Problems.fromJson(Map<String, dynamic> jsonData) 
+    {
+    return Problems
+    (
+      student_name: jsonData['student_name'],
+      student_id: jsonData['student_id'],
+      student_level: jsonData['student_level'],
+      department: jsonData['department'],
+      problem: jsonData['problem'],
+      advisor_name: jsonData['advisor_name'],
+      advisor_id: jsonData['advisor_id'],
+      answer: jsonData['answer'],
+      upvote: jsonData['upvote'],
+      downvote: jsonData['downvote'],
+      kind: jsonData['kind']
+    );
+  }
 
-  static List<dynamic> dummyProblems =
-  [
-    Problems("Mohammed Hassan", "20230001", "3", "information systems", "the proplem skjdhf jdshf lskj dfka sdfsjdhf shdfh lasidjfh", "Ahmed Hassan", "101", "jsdbc kjsb dckjsd bcsd cjs dkcjh sk osdhc", 202, 16, "Gerenal"),
-    Problems("Moshabbab Alqahtani ", "20230002", "7", "computer since", "the proplem skjdhf jdshf lskj dfka sdfsjdhf shdfh lasidjfh", "Ahmed Hassan", "102", "jsdbc kjsb dckjsd bcsd cjs dkcjh sk osdhc", 161, 22, "asas"),
-    Problems("Hassan Alahmary", "20230003", "5", "program enigner", "the proplem skjdhf jdshf lskj dfka sdfsjdhf shdfh lasidjfh sdj,fns slkd flsdhlksdflksdhf sjdhf sdjfhksjdhfk kjsdhf ksjdfh kjsdhf kjsdhfjsdhf ksdhfkjs fk", "Ahmed Hassan", "101", "jsdbc kjsb dckjsd bcsd cjs dkcjh sk osdhc", 115, 12, "Gerenal"),
-    Problems("Hamad Alshihry", "20230004", "1", "information systems", "the proplem skjdhf jdshf lskj dfka sdfsjdhf shdfh lasidjfh", "Ahmed Hassan", "102", "jsdbc kjsb dckjsd bcsd cjs dkcjh sk osdhc", 92, 5, "asas"),
-  ];
+  static Map<String, dynamic> toMap(Problems problem) => 
+  {
+    'student_name': problem.student_name,
+    'student_id': problem.student_id,
+    'student_level': problem.student_level,
+    'department': problem.department,
+    'problem': problem.problem,
+    'advisor_name': problem.advisor_name,
+    'advisor_id': problem.advisor_id,
+    'answer': problem.answer,
+    'upvote': problem.upvote,
+    'downvote': problem.downvote,
+    'kind': problem.kind,
+  };
+
+  static String encode(List<Problems> musics) => json.encode
+  (
+    musics.map<Map<String, dynamic>>((music) => Problems.toMap(music)).toList(),
+  );
+
+  static List<Problems> decode(String musics) =>
+    (json.decode(musics) as List<dynamic>)
+      .map<Problems>((item) => Problems.fromJson(item))
+      .toList();
+
+  void removeWhere(bool Function(dynamic item) param0) {}
 }

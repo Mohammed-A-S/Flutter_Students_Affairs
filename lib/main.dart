@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_team/Team_sharing/problem_page.dart';
-import 'package:flutter_team/screens/student_home_screen.dart';
-import 'package:flutter_team/widgets/Admin_problems_solve.dart';
+import 'package:flutter_team/screens/login_screen.dart';
 
 void main() 
 {
@@ -16,10 +14,10 @@ class MyApp extends StatelessWidget
   @override
   Widget build(BuildContext context) 
   {
-    return MaterialApp
+    return  MaterialApp
     (
       debugShowCheckedModeBanner: false,
-      home: AddingPage(),
+      home: Login(),
     );
   }
 }
